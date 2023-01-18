@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Task } from 'src/app/model/task';
 import { TodoListDataService } from 'src/app/service/todo-list-data.service';
 import { Select, Store } from '@ngxs/store';
-import { addTask, GetTask } from 'src/app/actions/task-actions';
+import { addTask, editTask, GetTask, removeTask } from 'src/app/actions/task-actions';
 import { Observable } from 'rxjs';
 import { TaskState } from 'src/app/state/task.state';
 
@@ -13,6 +13,7 @@ import { TaskState } from 'src/app/state/task.state';
 })
 export class HomePageComponent {
 
+  switch_expression:string='All Tasks';
   DescValue:string='';
   showtaskInfo :Task=new Task();
   emptyTextValue: string = '';
@@ -67,7 +68,7 @@ export class HomePageComponent {
     this.taskObj.dueDate=this.editdateValue;
     this.taskObj.description=this.editDescValue;
     this.service.editTask(this.taskObj).subscribe(res => {
-      this.getAllTasks();
+      this.store.dispatch(new editTask(res));
     }, err => {
       console.log(err);
     })
@@ -77,7 +78,7 @@ export class HomePageComponent {
     this.confirmDelete = confirm("Are you sure want to delete the task");
     this.confirmDelete ?
       this.service.deleteTask(eTask).subscribe(res => {
-        this.getAllTasks();
+        this.store.dispatch(new removeTask(eTask.task_name));
       }, err => {
         console.log(err);
       }) : '';
@@ -86,6 +87,8 @@ export class HomePageComponent {
   call(eTask: Task) {
     this.taskObj = eTask;
     this.editTaskValue = this.taskObj.task_name;
+    this.editDescValue = this.taskObj.description;
+    this.editdateValue=this.taskObj.dueDate;
   }
 
   completeTask(eTask: Task) {

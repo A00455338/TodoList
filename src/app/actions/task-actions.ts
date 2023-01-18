@@ -17,3 +17,10 @@ export class removeTask{
     constructor (public payload :string)
     {}
 }
+
+
+export class editTask{
+    static readonly type="[Task] Edit"
+    constructor (public payload :Task)
+    {}
+}

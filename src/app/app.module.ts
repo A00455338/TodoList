@@ -8,7 +8,6 @@ import { HomePageComponent } from './component/home-page/home-page.component';
 import { TasksComponent } from './component/tasks/tasks.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { AddTaskInfoComponent } from './component/add-task-info/add-task-info.component';
 import { ReadComponent } from './read/read.component';
 
 import { NgxsModule } from '@ngxs/store';
@@ -19,7 +18,6 @@ import { TaskState } from './state/task.state';
     AppComponent,
     HomePageComponent,
     TasksComponent,
-    AddTaskInfoComponent,
     ReadComponent
   ],
   imports: [

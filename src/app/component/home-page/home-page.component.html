@@ -19,10 +19,19 @@
                     <button class="btn btn-outline-success ms-5" type="button" (click)="addTask()">Add a task</button>
                 </div>
                 <div class="ps-4 pb-4 "><label>Enter Due Date : &nbsp; </label><input type="date" name="DateandTime"
-                        value="" [(ngModel)]="dateValue" placeholder="enter date" min="2023-01-17" /></div>
+                        value="" [(ngModel)]="dateValue" placeholder="enter date" min="2023-01-18" value="2023-01-18"/></div>
                 <div class="text-danger ps-4 pb-4" [hidden]="emptyTextValue.length==0">Error : {{emptyTextValue}}
                 </div>
             </div>
+
+            <div class="me-4"style="float:right">
+                <label>Filter tasks :   </label>
+                <select class="dropdown ms-2 p-1 ps-2 pe-2" [(ngModel)]="switch_expression">
+                    <option selected>All Tasks</option>
+                    <option value="completedTasks">Completed Tasks</option>
+                    <option value="ActiveTasks">Active Tasks</option>
+                  </select></div>
+
             <div>
 
                 <!-- <ul class="nav">
@@ -40,13 +49,24 @@
                             </li>
                           </ul> -->
 
-                <h6 class="text mt-4">Tasks :</h6>
+                <h6 class="text mt-4">Tasks :</h6> 
+                
 
                 <div style="overflow-y: auto;height:300px">
-                    <div class="m-3">
-                        <app-tasks *ngFor="let task of taskArr$ | async" [task]="task" (calltheChange)="call($event)"
+                    <div class="m-3" [ngSwitch]="switch_expression">
+                        
+                        <div *ngSwitchCase="'completedTasks'">
+                            <div *ngFor="let task of taskArr$ | async"><app-tasks  *ngIf="task.done==true" [task]="task" (calltheChange)="call($event)"
                             (showDescSelected)="ShowInfo($event)" (completeChange)="completeTask($event)"
-                            (deleteChange)="deleteTask($event)"></app-tasks>
+                            (deleteChange)="deleteTask($event)"></app-tasks></div></div>
+
+                            <div *ngSwitchCase="'ActiveTasks'"> <div *ngFor="let task of taskArr$ | async"><app-tasks *ngIf="task.done==false" [task]="task" (calltheChange)="call($event)"
+                            (showDescSelected)="ShowInfo($event)" (completeChange)="completeTask($event)"
+                            (deleteChange)="deleteTask($event)"></app-tasks></div></div>
+
+                            <div *ngSwitchDefault> <div *ngFor="let task of taskArr$ | async"><app-tasks [task]="task" (calltheChange)="call($event)"
+                            (showDescSelected)="ShowInfo($event)" (completeChange)="completeTask($event)"
+                            (deleteChange)="deleteTask($event)"></app-tasks></div></div>
                     </div>
                 </div>
 
@@ -67,8 +87,8 @@
                                     placeholder="Enter Task Description" required>
 
                                 <div class="ps-4 pb-4"><label>Enter Due Date : &nbsp; </label><input type="date"
-                                        name="DateandTime" value="" [(ngModel)]="editdateValue" placeholder="enter date"
-                                        min="2023-01-18T20:20" /></div>
+                                        name="DateandTime" min="2023-01-18" value="2023-01-18" [(ngModel)]="editdateValue" placeholder="enter date"
+                                        /></div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" (click)="editTask()"

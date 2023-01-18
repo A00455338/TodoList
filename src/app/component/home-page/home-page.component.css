@@ -54,3 +54,9 @@ left : 100px;
 button{
     border-radius: 7px !important;
 }
+
+.dropdown{
+    background-color:white;
+    border: 1px solid grey;
+    border-radius: 5px;
+}

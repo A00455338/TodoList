@@ -1,0 +1,114 @@
+<div class=" container">
+    <div class="row mt-4 TodoContainer">
+        <div class="col-md-6 TodoDiv">
+            <div class="card mt-3 mb-2" style="color:'green';background-color: rgb(248, 248, 245);">
+                <h4 class=" ps-3 pt-2 pb-1">Todo List</h4>
+            </div>
+            <!-- 
+            <app-add-task-info></app-add-task-info> -->
+            <h6 class="text mt-4 mb-3">Add task here :</h6>
+            <div class="shadow m-3">
+
+                <div class="input-group p-4">
+                    <input type="text" class="addTask" placeholder="Enter task" [(ngModel)]="taskValue" required>
+                </div>
+                <div class="input-group ps-4 pb-4">
+                    <input type="textbo" class="addTask" [(ngModel)]="DescValue" placeholder="Enter Task Description"
+                        required>
+
+                    <button class="btn btn-outline-success ms-5" type="button" (click)="addTask()">Add a task</button>
+                </div>
+                <div class="ps-4 pb-4 "><label>Enter Due Date : &nbsp; </label><input type="date" name="DateandTime"
+                        value="" [(ngModel)]="dateValue" placeholder="enter date" min="2023-01-17" /></div>
+                <div class="text-danger ps-4 pb-4" [hidden]="emptyTextValue.length==0">Error : {{emptyTextValue}}
+                </div>
+            </div>
+            <div>
+
+                <!-- <ul class="nav">
+                            <li class="nav-item">
+                              <a class="nav-link active" aria-current="page">Active</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link disabled">Disabled</a>
+                            </li>
+                          </ul> -->
+
+                <h6 class="text mt-4">Tasks :</h6>
+
+                <div style="overflow-y: auto;height:300px">
+                    <div class="m-3">
+                        <app-tasks *ngFor="let task of taskArr$ | async" [task]="task" (calltheChange)="call($event)"
+                            (showDescSelected)="ShowInfo($event)" (completeChange)="completeTask($event)"
+                            (deleteChange)="deleteTask($event)"></app-tasks>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="EditTaskModel" tabindex="-1" aria-labelledby="EditTaskModelLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" style="color: black">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="EditTaskModelLabel">Edit the Task</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="text" class="form-control m-2" placeholder="Enter task name"
+                                    [(ngModel)]="editTaskValue">
+                                <input type="textbo" class="form-control m-2 " [(ngModel)]="editDescValue"
+                                    placeholder="Enter Task Description" required>
+
+                                <div class="ps-4 pb-4"><label>Enter Due Date : &nbsp; </label><input type="date"
+                                        name="DateandTime" value="" [(ngModel)]="editdateValue" placeholder="enter date"
+                                        min="2023-01-18T20:20" /></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" (click)="editTask()"
+                                    data-bs-dismiss="modal">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="second-container" *ngIf="showtaskInfo.task_name!=''">
+    <div class="row mt-4 TodoContainerSecond">
+        <div class="col-md-6 ">
+
+            <div class=" desc p-4 pt-2 shadow border m-3" style="width: 350px;">
+                <div m-3>
+                    <label>Task Details : </label>
+
+                    <div class="btn btn-outline-danger ps-8 pe-8" style="float: right;" (click)="toggleShoeDesc()">close
+                    </div>
+                </div>
+
+                <hr>
+                <label class="text-success"> Task Name :- </label><span>{{showtaskInfo.task_name | uppercase}}</span>
+
+                <hr>
+                <label class="text-success">Description :-</label>
+                <span> {{showtaskInfo.description}}</span>
+                <hr>
+                <div class="text-danger">Due Date:- {{showtaskInfo.dueDate}}</div>
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+
+    <router-outlet></router-outlet>

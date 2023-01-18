@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+body
+{
+    background-image: url("/assets/scott-webb-hDyO6rr3kqk-unsplash.jpg"); ;
+    background-size:cover;
+    background-attachment: fixed;
+    width:100%;
+
+}
+
+button
+{
+    border-radius: 5px !important;
+}
+ 

@@ -1,0 +1,11 @@
+.task{
+    border-left-color: green !important;
+    border-left-width: 7px !important;
+    border-left-style: solid;
+    box-shadow: 4px 5px white;
+    border-radius: 8px;
+   
+}
+.todo{
+    border-radius: 8px;
+}

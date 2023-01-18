@@ -1,0 +1,16 @@
+
+
+<div class="p-2 shadow border m-3 todo" [ngClass]="{task:task.done}" >
+    <div class="input-group row ps-3">
+        <div class="col-md-7" [ngStyle]="{'text-decoration':task.done === true ? 'line-through' :'' }">{{task.task_name}}
+            <img src="assets/info.png" style="margin-left:10px;height: 15px; width: 15px;" (click)="showDescription(task)"/>
+        </div>
+        
+        <button class="btn btn-outline-success col me-2" (click)="callChanges(task)"
+            data-bs-toggle="modal" data-bs-target="#EditTaskModel">edit</button>
+        <div class="btn btn-outline-success col me-2" (click)="completeChanges(task)"
+            [hidden]="task.done">Completed</div>
+        <div class="btn btn-outline-danger col" (click)="deleteChanges(task)">X</div>
+        <span style="font-size:12px" aria-required="true">Due Date:- {{task.dueDate}}</span>
+    </div>
+</div>
